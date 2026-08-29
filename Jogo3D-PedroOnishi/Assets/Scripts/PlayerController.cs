@@ -1,0 +1,41 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerController : MonoBehaviour
+{
+    public Rigidbody rig;
+    public Transform cannon;
+    public float speed = 10;
+    public Vector2 rotationSpeed = new Vector2(10, 10);
+    public float minRotationX = -75f;
+    public float maxRotationX = 0f;
+
+    private Vector2 moveInput;
+    private Vector2 cannonRotation;
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 vX = moveInput.x * speed * transform.right;
+        Vector3 vY = rig.linearVelocity.y * transform.up;
+        Vector3 vZ = moveInput.y * speed * transform.forward;
+        rig.linearVelocity = vX + vY + vZ;
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Vector2 lookInput = context.ReadValue<Vector2>();
+
+        cannonRotation.y += lookInput.x * rotationSpeed.y * Time.deltaTime;
+        cannonRotation.x -= lookInput.y * rotationSpeed.x * Time.deltaTime;
+
+        cannonRotation.x = Mathf.Clamp(cannonRotation.x, minRotationX, maxRotationX);
+
+        cannon.localRotation = Quaternion.Euler(cannonRotation.x, cannonRotation.y, 0f);
+    }
+
+}

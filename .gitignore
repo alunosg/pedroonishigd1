@@ -104,3 +104,6 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+Jogo3D-PedroOnishi/.vscode
+Jogo3D-PedroOnishi/Library
+Jogo3D-PedroOnishi/UserSettings
