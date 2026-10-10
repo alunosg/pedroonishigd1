@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public Rigidbody rig;
+
     public bool hitPlayer = true;
     public bool hitEnemy = true;
 
@@ -13,13 +15,18 @@ public class Bullet : MonoBehaviour
     {
         if (hitPlayer && other.CompareTag("Player"))
         {
-            // other.GetComponent<PlayerController>().GetHit(damage);
+            other.GetComponent<PlayerController>().GetHit(damage);
         }
         if (hitEnemy && other.CompareTag("Enemy"))
         {
-            //other.GetComponent<EnemyController>().GetHit(damage);        }
+            other.GetComponent<EnemyController>().GetHit(damage);
         }
         if (hitFX) Instantiate(hitFX, transform.position, transform.rotation);
         Destroy(gameObject);
+    }
+
+    private void LateUpdate()
+    {
+        transform.rotation = Quaternion.LookRotation(rig.linearVelocity);
     }
 }

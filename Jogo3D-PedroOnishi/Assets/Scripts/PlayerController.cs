@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody rig;
     public Transform cannon;
+    public Transform turret;
 
     public Transform bulletPoint;
     public GameObject bulletPrefab;
     public GameObject shootFX;
+    public GameObject hitFX;
     public float bulletSpeed = 100;
 
     public float speed = 10;
@@ -18,6 +22,17 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveInput;
     private Vector2 cannonRotation;
+
+    public Image hpBar;
+    public float hp = 5;
+    private float maxHp;
+
+    public float deathDuration = 5;
+
+    private void Start()
+    {
+        maxHp = hp;
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -44,7 +59,8 @@ public class PlayerController : MonoBehaviour
 
         cannonRotation.x = Mathf.Clamp(cannonRotation.x, minRotationX, maxRotationX);
 
-        cannon.localRotation = Quaternion.Euler(cannonRotation.x, cannonRotation.y, 0f);
+        turret.localRotation = Quaternion.Euler(0f, cannonRotation.y, 0f);
+        cannon.localRotation = Quaternion.Euler(cannonRotation.x, 0f, 0f);
     }
 
     public void OnShoot(InputAction.CallbackContext context)
@@ -57,5 +73,26 @@ public class PlayerController : MonoBehaviour
             bullet.GetComponent<Rigidbody>().linearVelocity = bulletPoint.forward * bulletSpeed;
         }
     }
+
+    public void GetHit(float damage)
+    {
+        if (hp > 0)
+        {
+            if (hitFX) Instantiate(hitFX, transform.position, transform.rotation);
+            
+            hp -= damage;
+            hpBar.fillAmount = hp / maxHp;
+            if (hp > 0)
+            {
+                //Leva hit
+            }
+            else
+            {
+                Invoke(nameof(Reload), deathDuration);
+            }
+        }
+    }
+
+    public void Reload() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
 }
