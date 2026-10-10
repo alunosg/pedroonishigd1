@@ -985,7 +985,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.121432945, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1004,7 +1004,7 @@ Transform:
   m_GameObject: {fileID: 841502011}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalPosition: {x: 0, y: 0, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1427,7 +1427,7 @@ GameObject:
   - component: {fileID: 1608459193}
   - component: {fileID: 1608459194}
   m_Layer: 0
-  m_Name: hp
+  m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1521,6 +1521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fe39d4f79523548a80cc04afb1cd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::faceCamera
+  baseScale: 0.1
 --- !u!1 &1663980470
 GameObject:
   m_ObjectHideFlags: 0
